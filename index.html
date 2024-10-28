@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horror Movies</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.5s ease-in-out;
+        }
+        header {
+            text-align: center;
+            margin-top: 20px;
+        }
+        header img {
+            width: 150px;
+            animation: logo-flicker 3s infinite alternate;
+        }
+        .search-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .search-container input {
+            width: 50%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            background-color: #333;
+            color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+        }
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .content a {
+            margin: 10px;
+            text-decoration: none;
+            color: #fff;
+            text-align: center;
+            perspective: 1000px;
+            position: relative;
+        }
+        .content img {
+            width: 200px;
+            height: 300px;
+            border: 2px solid #fff;
+            border-radius: 10px;
+            transition: transform 0.5s, border-color 0.5s;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+        }
+        .content img:hover {
+            border-color: red;
+            transform: rotateY(180deg) scale(1.05);
+        }
+        .content .title {
+            margin-top: 5px;
+            font-size: 18px;
+            color: red;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.7);
+        }
+        .new-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: red;
+            color: white;
+            padding: 5px 10px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+            animation: pulse 1.5s infinite;
+        }
+        .no-results {
+            text-align: center;
+            margin: 20px 0;
+            color: red;
+            font-size: 20px;
+            animation: blink 1.5s infinite;
+        }
+        .no-results img {
+            width: 200px;
+            height: auto;
+            margin-top: 10px;
+        }
+        .scroll-to-top {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        .scroll-to-top:hover {
+            background-color: darkred;
+            transform: scale(1.1);
+        }
+        .contact-section {
+            display: none;
+            text-align: center;
+            margin: 40px 0;
+            color: #fff;
+            font-size: 18px;
+        }
+        .contact-section a {
+            display: inline-block;
+            background-color: red;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        .contact-section a:hover {
+            background-color: darkred;
+            transform: scale(1.1);
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        @keyframes logo-flicker {
+            0%, 100% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 0.2;
+            }
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+    </style>
+    <script>
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+        document.onkeydown = function(e) {
+            if (e.key == 'F12' || (e.ctrlKey && e.shiftKey && e.key == 'I')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <img src="https://i.imgur.com/iYZcdxp.png" alt="Logo">
+    </header>
+    <div class="search-container">
+        <input type="text" id="search-bar" onkeyup="searchFunction()" placeholder="Rechercher...">
+    </div>
+    <div class="content" id="content">
+        <a href="https://horrormovies18.github.io/Horror-Movie---Terrifier-3/">
+            <div class="new-badge">NEW</div>
+            <img src="https://xl.movieposterdb.com/24_10/2024/27911000/xl_terrifier-3-movie-poster_5fc5b7f7.jpg?v=2024-10-21%2016:55:30" alt="Image 1">
+            <div class="title">Terrifier 3</div>
+        </a>
+        <a href="https://horrormovies18.github.io/Horror-Movies---Terrifier-1-VF/">
+            <img src="https://www.themoviedb.org/t/p/original/5dmmXd8lE5CWAJ8sPIOWY5VJd1r.jpg" alt="Image 2">
+            <div class="title">Terrifier 1</div>
+        </a>
+        <!-- Ajoutez plus de films ici -->
+    </div>
+    <div id="no-results" class="no-results" style="display: none;">
+        <p>Aucun résultat trouvé</p>
+        <img src="https://i.imgur.com/wD5vOY8.png" alt="No Results">
+    </div>
+    <div id="contact-section" class="contact-section" style="display: none;">
+        <p>Si le film que vous cherchez n'est pas là, veuillez nous contacter et nous essaierons de l'ajouter au plus vite.</p>
+        <a href="https://horrormovies18.github.io/Horror-Movies---Contactez-Nous/">Nous contacter</a>
+    </div>
+    <button class="scroll-to-top" id="scrollToTopBtn" onclick="scrollToTop()">▲</button>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            let scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            if (window.pageYOffset > 200) {
+                scrollToTopBtn.style.display = 'block';
+            } else {
+                scrollToTopBtn.style.display = 'none';
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function searchFunction() {
+            let input = document.getElementById('search-bar');
+            let filter = input.value.toUpperCase();
+            let content = document.getElementById('content');
+            let a = content.getElementsByTagName('a');
+            let noResults = document.getElementById('no-results');
+            let contactSection = document.getElementById('contact-section');
+            let found = false;
+
+            for (let i = 0; i < a.length; i++) {
+                let title = a[i].getElementsByClassName('title')[0];
+                if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                    a[i].style.display = '';
+                    found = true;
+                } else {
+                    a[i].style.display = 'none';
+                }
+            }
+
+            if (!found) {
+                noResults.style.display = 'block';
+                contactSection.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+                contactSection.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
